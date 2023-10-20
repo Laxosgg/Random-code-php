@@ -1,0 +1,77 @@
+<?php
+function generateRandom($min, $max) {
+  return rand($min, $max);
+}
+
+$error = '';
+$num1 = '';
+$num2 = '';
+$result = '';
+
+if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['operation'])) {
+  $num1 = $_GET['num1'];
+  $num2 = $_GET['num2'];
+  $op = $_GET['operation'];
+
+  if (is_numeric($num1) && is_numeric($num2)) {
+    switch ($op) {
+      case '+' :
+        $result = $num1 + $num2;
+        break;
+      case '-' :
+        $result = $num1 - $num2;
+        break;  
+      case '*' :
+        $result = $num1 * $num2;
+        break; 
+      case '/' :
+        $result = $num1 / $num2;
+        break;
+      case 'Рандом' :
+        $result = generateRandom($num1, $num2);
+        break;     
+    }
+  } else {
+    $error = 'Введите первое число:';
+  }
+}
+?>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PO 3-4</title>
+</head>
+<body>
+  <h1><?=$error ?></h1>
+  <h1>Пернебай Ерасыл</h1>
+  <form action="" method="get">
+    
+    <div>
+      <label for="num1">Число-1</label>
+      <input type="number" name="num1" id="num1" value="<?=$num1?>">
+    </div>
+
+    <div>
+      <label for="num2">Число-2</label>
+      <input type="number" name="num2" id="num2" value="<?=$num2?>">
+    </div>
+
+    <div>
+      <label for="result">Результат</label>
+      <input type="text" id="result" value="<?=$result?>" disabled>
+    </div>
+
+    <div>
+      <input type="submit" value="+" name="operation">
+      <input type="submit" value="-" name="operation">
+      <input type="submit" value="*" name="operation">
+      <input type="submit" value="/" name="operation">
+      <input type="submit" value="Рандом" name="operation">
+    </div>  
+   
+  </form>
+</body>
+</html>
